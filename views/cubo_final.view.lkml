@@ -15,6 +15,9 @@ view: cubo_final {
     allowed_value: {
       value: "Description"
     }
+    allowed_value: {
+      value: "Material"
+    }
   }
 
   dimension: Dimension_1 {
@@ -27,6 +30,37 @@ view: cubo_final {
       ${TABLE}.Model
     {% elsif Dimension_filtro._parameter_value == 'Description' %}
       ${TABLE}.Description
+    {% elsif Dimension_filtro._parameter_value == 'Material' %}
+      ${TABLE}.Material
+    {% endif %};;
+  }
+
+  parameter: UOM_filtro {
+    type: unquoted
+    allowed_value: {
+      value: "Unidades"
+    }
+    allowed_value: {
+      value: "Revenue"
+    }
+    allowed_value: {
+      value: "Profit"
+    }
+    allowed_value: {
+      value: "COGS"
+    }
+  }
+
+  dimension: UOM {
+    sql:
+    {% if UOM_filtro._parameter_value == 'Unidades' %}
+      ${TABLE}.Value
+    {% elsif UOM_filtro._parameter_value == 'Revenue' %}
+      ${TABLE}.Revenue
+    {% elsif UOM_filtro._parameter_value == 'Profit' %}
+      ${TABLE}.GrossProfit
+    {% elsif UOM_filtro._parameter_value == 'COGS' %}
+      ${TABLE}.COG
     {% endif %};;
   }
 
