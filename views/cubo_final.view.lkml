@@ -35,9 +35,6 @@ view: cubo_final {
     {% endif %};;
   }
 
-
-
-
   parameter: UOM_filtro {
     type: unquoted
     allowed_value: {
@@ -67,7 +64,20 @@ view: cubo_final {
     {% endif %};;
   }
 
-
+  dimension: AbsVar {
+    type: number
+    sql: CASE
+        WHEN ${cubo_final.measure} = 'ActualArrivals' THEN ${UOM}
+        ELSE 0
+      END ;;
+  }
+  dimension: Arrivals {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'ActualArrivals' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
 
   dimension: abc {
     type: string
