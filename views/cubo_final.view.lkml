@@ -78,7 +78,13 @@ view: cubo_final {
             ELSE 0
          END ;;
   }
-
+  dimension: Stat_FC {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Forecast' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
   dimension: abc {
     type: string
     sql: ${TABLE}.ABC ;;
