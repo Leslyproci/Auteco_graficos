@@ -63,6 +63,13 @@ view: cubo_final {
       ${TABLE}.COG
     {% endif %};;
   }
+  dimension: AbsVar {
+    type: number
+    sql: CASE
+            WHEN ${TABLE}.Measure = 'AbsVar' THEN ${TABLE}.UOM
+            ELSE '0'
+         END ;;
+  }
 
   dimension: abc {
     type: string
