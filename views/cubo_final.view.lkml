@@ -66,7 +66,7 @@ view: cubo_final {
   dimension: AbsVar {
     type: number
     sql: CASE
-            WHEN ${TABLE}.Measure = 'AbsVar' THEN ${TABLE}.UOM
+            WHEN ${measure} = 'AbsVar' THEN ${UOM}
             ELSE '0'
          END ;;
   }
