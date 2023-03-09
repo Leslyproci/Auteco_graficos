@@ -12,6 +12,4 @@ persist_with: grafico_auteco_default_datagroup
 
 explore: tabla_grafico_mes {}
 
-explore: cubo {}
-
-explore: cubo_1 {}
+explore: cubo_final {}
