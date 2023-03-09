@@ -1,6 +1,34 @@
 view: cubo_final {
   sql_table_name: `analitica-demos.auteco.cubo_final`
     ;;
+  parameter: Dimension_filtro {
+    type: unquoted
+    allowed_value: {
+      value: "Brand"
+    }
+    allowed_value: {
+      value: "Status"
+    }
+    allowed_value: {
+      value: "Model"
+    }
+    allowed_value: {
+      value: "Description"
+    }
+  }
+
+  dimension: Dimension_1 {
+    sql:
+    {% if Dimension_filtro._parameter_value == 'Brand' %}
+      ${TABLE}.Brand
+    {% elsif Dimension_filtro._parameter_value == 'Status' %}
+      ${TABLE}.Status
+    {% elsif Dimension_filtro._parameter_value == 'Model' %}
+      ${TABLE}.Model
+    {% elsif Dimension_filtro._parameter_value == 'Description' %}
+      ${TABLE}.Description
+    {% endif %};;
+  }
 
   dimension: abc {
     type: string
