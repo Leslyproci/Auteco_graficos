@@ -35,6 +35,9 @@ view: cubo_final {
     {% endif %};;
   }
 
+
+
+
   parameter: UOM_filtro {
     type: unquoted
     allowed_value: {
