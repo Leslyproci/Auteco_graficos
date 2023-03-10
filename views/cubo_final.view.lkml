@@ -1,6 +1,7 @@
 view: cubo_final {
   sql_table_name: `analitica-demos.auteco.cubo_final`
     ;;
+############### Filtros dinamicos
   parameter: Dimension_filtro {
     type: unquoted
     allowed_value: {
@@ -206,6 +207,13 @@ view: cubo_final {
             ELSE 0
          END ;;
   }
+  dimension: CSOH {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'CSOH' OR  ${cubo_final.measure} = 'PSOH' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
   dimension: Stat_FC {
     type: number
     sql: CASE
@@ -213,7 +221,7 @@ view: cubo_final {
             ELSE 0
          END ;;
   }
-  ###########################Dimensiones relacionandas al mes
+  ########################### Dimensiones relacionandas al mes
   dimension: LagAbsVar {
     type: number
     sql: CASE
@@ -232,7 +240,24 @@ view: cubo_final {
           ELSE NULL
          END ;;
   }
-
+  dimension: LagForecast {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.month} = 'January' THEN IF(${cubo_final.measure} = 'LagForecast_January', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'February' THEN IF(${cubo_final.measure} = 'LagForecast_February', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'March' THEN IF(${cubo_final.measure}= 'LagForecast_March',${UOM}, 0)
+            WHEN ${cubo_final.month} = 'April' THEN IF(${cubo_final.measure} = 'LagForecast_April', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'May' THEN IF(${cubo_final.measure} = 'LagForecast_May', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'June' THEN IF(${cubo_final.measure} = 'LagForecast_June', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'July' THEN IF(${cubo_final.measure} = 'LagForecast_July', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'August' THEN IF(${cubo_final.measure} = 'LagForecast_August', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'September' THEN IF(${cubo_final.measure} = 'LagForecast_Septembre', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'October' THEN IF(${cubo_final.measure} = 'LagForecast_October', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'November' THEN IF(${cubo_final.measure}= 'LagForecast_November', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'December' THEN IF(${cubo_final.measure} = 'LagForecast_December', ${UOM}, 0)
+          ELSE NULL
+         END ;;
+  }
 ########################
   measure: count {
     type: count
