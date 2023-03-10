@@ -1,7 +1,7 @@
 view: cubo_final {
   sql_table_name: `analitica-demos.auteco.cubo_final`
     ;;
-############### Filtros dinamicos
+############### Filtros dinamicos ##############
   parameter: Dimension_filtro {
     type: unquoted
     allowed_value: {
