@@ -214,6 +214,48 @@ view: cubo_final {
             ELSE 0
          END ;;
   }
+  dimension: Dmd_Plan {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'SalesForecast' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  dimension: Max {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Max' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  dimension: Min {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Min' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  dimension: Sell_In {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Sell_In' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  dimension: Sell_Out {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Sell_Out' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  dimension: Target {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Target' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
   dimension: Stat_FC {
     type: number
     sql: CASE
