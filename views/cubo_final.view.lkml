@@ -19,22 +19,6 @@ view: cubo_final {
       value: "Material"
     }
   }
-
-  dimension: Dimension_1 {
-    sql:
-    {% if Dimension_filtro._parameter_value == 'Brand' %}
-      ${TABLE}.Brand
-    {% elsif Dimension_filtro._parameter_value == 'Status' %}
-      ${TABLE}.Status
-    {% elsif Dimension_filtro._parameter_value == 'Model' %}
-      ${TABLE}.Model
-    {% elsif Dimension_filtro._parameter_value == 'Description' %}
-      ${TABLE}.Description
-    {% elsif Dimension_filtro._parameter_value == 'Material' %}
-      ${TABLE}.Material
-    {% endif %};;
-  }
-
   parameter: UOM_filtro {
     type: unquoted
     allowed_value: {
@@ -50,6 +34,21 @@ view: cubo_final {
       value: "COGS"
     }
   }
+############################Variables liquidas
+  dimension: Dimension {
+    sql:
+    {% if Dimension_filtro._parameter_value == 'Brand' %}
+      ${TABLE}.Brand
+    {% elsif Dimension_filtro._parameter_value == 'Status' %}
+      ${TABLE}.Status
+    {% elsif Dimension_filtro._parameter_value == 'Model' %}
+      ${TABLE}.Model
+    {% elsif Dimension_filtro._parameter_value == 'Description' %}
+      ${TABLE}.Description
+    {% elsif Dimension_filtro._parameter_value == 'Material' %}
+      ${TABLE}.Material
+    {% endif %};;
+  }
 
   dimension: UOM {
     sql:
@@ -63,28 +62,7 @@ view: cubo_final {
       ${TABLE}.COG
     {% endif %};;
   }
-
-  dimension: AbsVar {
-    type: number
-    sql: CASE
-        WHEN ${cubo_final.measure} = 'ActualArrivals' THEN ${UOM}
-        ELSE 0
-      END ;;
-  }
-  dimension: Arrivals {
-    type: number
-    sql: CASE
-            WHEN ${cubo_final.measure} = 'ActualArrivals' THEN ${UOM}
-            ELSE 0
-         END ;;
-  }
-  dimension: Stat_FC {
-    type: number
-    sql: CASE
-            WHEN ${cubo_final.measure} = 'Forecast' THEN ${UOM}
-            ELSE 0
-         END ;;
-  }
+#####################################################################
   dimension: abc {
     type: string
     sql: ${TABLE}.ABC ;;
@@ -213,7 +191,49 @@ view: cubo_final {
     type: number
     sql: ${TABLE}.zScore ;;
   }
+################Dimensiones creadas
+  dimension: AbsVar {
+    type: number
+    sql: CASE
+        WHEN ${cubo_final.measure} = 'ActualArrivals' THEN ${UOM}
+        ELSE 0
+      END ;;
+  }
+  dimension: Arrivals {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'ActualArrivals' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  dimension: Stat_FC {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.measure} = 'Forecast' THEN ${UOM}
+            ELSE 0
+         END ;;
+  }
+  ###########################Dimensiones relacionandas al mes
+  dimension: LagAbsVar {
+    type: number
+    sql: CASE
+            WHEN ${cubo_final.month} = 'January' THEN IF(${cubo_final.measure} = 'LagAbsVar_January', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'February' THEN IF(${cubo_final.measure} = 'LagAbsVar_February', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'March' THEN IF(${cubo_final.measure}= 'LagAbsVar_March',${UOM}, 0)
+            WHEN ${cubo_final.month} = 'April' THEN IF(${cubo_final.measure} = 'LagAbsVar_April', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'May' THEN IF(${cubo_final.measure} = 'LagAbsVar_May', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'June' THEN IF(${cubo_final.measure} = 'LagAbsVar_June', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'July' THEN IF(${cubo_final.measure} = 'LagAbsVar_July', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'August' THEN IF(${cubo_final.measure} = 'LagAbsVar_August', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'September' THEN IF(${cubo_final.measure} = 'LagAbsVar_Septembre', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'October' THEN IF(${cubo_final.measure} = 'LagAbsVar_October', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'November' THEN IF(${cubo_final.measure}= 'LagAbsVar_November', ${UOM}, 0)
+            WHEN ${cubo_final.month} = 'December' THEN IF(${cubo_final.measure} = 'LagAbsVar_December', ${UOM}, 0)
+          ELSE NULL
+         END ;;
+  }
 
+########################
   measure: count {
     type: count
     drill_fields: []
