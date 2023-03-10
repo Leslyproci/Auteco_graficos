@@ -300,9 +300,13 @@ view: cubo_final {
           ELSE NULL
          END ;;
   }
-########################
+######################## Medidas
   measure: count {
     type: count
     drill_fields: []
+  }
+  measure: Acc_Lag_Forecast {
+    type: number
+    sql: 1 - (COALESCE(SUM(${LagAbsVar}), 0) / COALESCE(SUM(${LagForecast}), 0));;
   }
 }
