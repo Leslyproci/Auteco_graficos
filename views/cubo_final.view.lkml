@@ -308,34 +308,34 @@ view: cubo_final {
   }
   measure: Acc_Lag_Forecast {
     type: number
-    sql: 1 - (COALESCE(SUM(${LagAbsVar}), 0) / COALESCE(SUM(${LagForecast}), 0));;
+    sql: 1 - (COALESCE(SUM(${LagAbsVar}), 0) / NULLIF(SUM(${LagForecast}), 0));;
   }
   measure: Acc_Zero_Lag {
     type: number
-    sql: 1 - (COALESCE(SUM(${LagAbsVar}), 0) / COALESCE(SUM(${Stat_FC}), 0));;
+    sql: 1 - (COALESCE(SUM(${LagAbsVar}), 0) / NULLIF(SUM(${Stat_FC}), 0));;
   }
   measure: WOH {
     type: number
-    sql: COALESCE(SUM(${CSOH}), 0) / COALESCE(SUM(${Stat_FC}), 0);;
+    sql: COALESCE(SUM(${CSOH}), 0) / NULLIF(SUM(${Stat_FC}), 0);;
   }
   measure: Var_Zero_Lag {
     type: number
-    sql: COALESCE(SUM(${Stat_FC}), 0) - COALESCE(SUM(${Sell_Out}), 0);;
+    sql: COALESCE(SUM(${Stat_FC}), 0) - NULLIF(SUM(${Sell_Out}), 0);;
   }
   measure: Var_Lag_Forecast {
     type: number
-    sql: COALESCE(SUM(${LagForecast}), 0) - COALESCE(SUM(${Sell_Out}), 0);;
+    sql: COALESCE(SUM(${LagForecast}), 0) - NULLIF(SUM(${Sell_Out}), 0);;
   }
   measure: Mkt_Intel {
     type: number
-    sql: COALESCE(SUM(${Dmd_Plan}), 0) - COALESCE(SUM(${Stat_FC}), 0);;
+    sql: COALESCE(SUM(${Dmd_Plan}), 0) - NULLIF(SUM(${Stat_FC}), 0);;
   }
   measure: Bias_Zero_Lag {
     type: number
-    sql: COALESCE(${Var_Zero_Lag}, 0) / COALESCE(SUM(${Stat_FC}), 0);;
+    sql: COALESCE(${Var_Zero_Lag}, 0) / NULLIF(SUM(${Stat_FC}), 0);;
   }
   measure: Bias_Lag_Forecast {
     type: number
-    sql: COALESCE(${Var_Lag_Forecast}, 0) / COALESCE(SUM(${LagForecast}), 0);;
+    sql: COALESCE(${Var_Lag_Forecast}, 0) / NULLIF(SUM(${LagForecast}), 0);;
   }
 }
