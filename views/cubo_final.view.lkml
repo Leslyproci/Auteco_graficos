@@ -62,6 +62,7 @@ view: cubo_final {
     {% elsif UOM_filtro._parameter_value == 'COGS' %}
       ${TABLE}.COG
     {% endif %};;
+    primary_key: yes
   }
 #####################################################################
   dimension: abc {
