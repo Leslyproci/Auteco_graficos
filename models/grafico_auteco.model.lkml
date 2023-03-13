@@ -10,6 +10,4 @@ datagroup: grafico_auteco_default_datagroup {
 
 persist_with: grafico_auteco_default_datagroup
 
-explore: tabla_grafico_mes {}
-
 explore: cubo_final {}
